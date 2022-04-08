@@ -24,7 +24,7 @@ jobs:
         run: npm run build
       - name: Deploy to Staging
         if: github.event_name == "push"
-        run: npx surge --project ./build --domain cicdreact.surge.sh
+        run: npx surge --project ./build --domain cicdreactstage.surge.sh
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
