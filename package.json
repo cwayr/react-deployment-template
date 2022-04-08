@@ -16,8 +16,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,yml,yaml,json,md,mdx,css,scss,less,graphql}\"",
-    "format:check": "prettier --list-different \"**/*.{js,jsx,ts,tsx,yml,yaml,json,md,mdx,css,scss,less,graphql}\""
+    "format": "npx prettier --write \"**/*.{js,jsx,ts,tsx,yml,yaml,json,md,mdx,css,scss,less,graphql}\"",
+    "format:check": "npx prettier --list-different \"**/*.{js,jsx,ts,tsx,yml,yaml,json,md,mdx,css,scss,less,graphql}\""
   },
   "eslintConfig": {
     "extends": [
