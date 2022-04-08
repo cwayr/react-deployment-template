@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: "14"
       - run: npm ci # functions like npm install
-      - run: npm run format:check
+      # - run: npm run format:check
       - run: npm test -- --coverage
         env:
           CI: true
