@@ -10,24 +10,50 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      # CACHE DEPENDENCIES
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
-          path: node_modules # depends on package manager and os
+          path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # will re-cache on changes to package-lock or operating system
           restore-keys: |
             ${{ runner.os }}-node-
+
+      # INSTALL NODEJS
       - name: Use NodeJS
         uses: actions/setup-node@v1
         with:
           node-version: "14"
-      - run: npm ci # functions like npm install
+
+      # INSTALL DEPENDENCIES
+      - run: npm ci
+
+      # RUN TESTS
       - run: npm test -- --coverage
         env:
           CI: true
+
+      # UPLOAD TEST COVERAGE ARTIFACT
+      - name: Upload Test Coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage
+          path: coverage
+
+      # BUILD PROJECT
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
+
+      # UPLOAD BUILD ARTIFACT
+      - name: Upload Build Folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
+
+      # DEPLOY CODE TO STAGING
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain cicdreactstage.surge.sh
