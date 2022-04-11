@@ -15,7 +15,7 @@ jobs:
         with:
           path: node_modules # depends on package manager and os
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # will re-cache on changes to package-lock or operating system
-          restore-key: |
+          restore-keys: |
             ${{ runner.os }}-node-
       - name: Use NodeJS
         uses: actions/setup-node@v1
