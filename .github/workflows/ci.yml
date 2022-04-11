@@ -55,7 +55,7 @@ jobs:
 
       # DEPLOY CODE TO STAGING
       - name: Deploy to Staging
-        if: github.event_name == "push"
+        if: github.event_name == 'push'
         run: npx surge --project ./build --domain cicdreactstage.surge.sh
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
