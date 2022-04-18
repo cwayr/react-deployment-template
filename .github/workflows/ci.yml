@@ -64,7 +64,14 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: npx surge --project ./build --domain $STAGING_URL
 
-      # DPEPLOY TO PRODUCTION
+      # DEPLOY TO PRODUCTION
       - name: Deploy to Production
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npx surge --project ./build --domain $PRODUCTION_URL
+
+      # UPLOAD COVERAGE REPORTS
+      - name: Upload Coverage Reports
+        if: github.event_name == 'push'
+        run: npx codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
