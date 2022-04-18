@@ -8,6 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      STAGING_URL: "cicdreactstage.surge.sh"
+      PRODUCTION_URL: "cicdreact.surge.sh"
     steps:
       - uses: actions/checkout@v2
 
@@ -56,8 +61,10 @@ jobs:
 
       # DEPLOY CODE TO STAGING
       - name: Deploy to Staging
-        if: github.event_name == 'push'
-        run: npx surge --project ./build --domain cicdreactstage.surge.sh
-        env:
-          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        run: npx surge --project ./build --domain $STAGING_URL
+
+      # DPEPLOY TO PRODUCTION
+      - name: Deploy to Production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: npx surge --project ./build --domain $PRODUCTION_URL
