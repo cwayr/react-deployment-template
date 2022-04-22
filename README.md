@@ -6,7 +6,7 @@ This template bootstraps a React project with CI/CD workflows through GitHub Act
 
 Benefits:
 
-- Keep a clean and organized coding process
+- Keep a clean and organized development process.
 - Automatate testing and deployment of code to staging and production environments.
 - Automatically upload artifacts and coverage reports.
 
