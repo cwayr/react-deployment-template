@@ -12,7 +12,7 @@ Benefits:
 
 <hr />
 
-## To use
+## 💻 To use 💻
 
 ### 1. Set up repository
 
