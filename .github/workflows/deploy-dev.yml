@@ -1,9 +1,9 @@
 name: CI
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop, master]
   push:
-    branches: [develop]
+    branches: [develop, master]
 
 jobs:
   build:
@@ -46,12 +46,12 @@ jobs:
           name: code-coverage
           path: coverage
 
-      # BUILD PROJECT
+      # BUILD PROJECT (if push)
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
 
-      # UPLOAD BUILD ARTIFACT
+      # UPLOAD BUILD ARTIFACT (if push)
       - name: Upload Build Folder
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v3
@@ -59,17 +59,17 @@ jobs:
           name: build
           path: build
 
-      # DEPLOY CODE TO STAGING
+      # DEPLOY CODE TO STAGING (if push to develop)
       - name: Deploy to Staging
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: npx surge --project ./build --domain $STAGING_URL
 
-      # DEPLOY TO PRODUCTION
+      # DEPLOY TO PRODUCTION (if push to master)
       - name: Deploy to Production
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npx surge --project ./build --domain $PRODUCTION_URL
 
-      # UPLOAD COVERAGE REPORTS
+      # UPLOAD COVERAGE REPORTS (if push)
       - name: Upload Coverage Reports
         if: github.event_name == 'push'
         run: npx codecov
