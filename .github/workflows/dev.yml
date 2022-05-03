@@ -1,9 +1,10 @@
-name: CI
+name: Development
+
 on:
   pull_request:
-    branches: [develop, master]
+    branches: develop
   push:
-    branches: [develop, master]
+    branches: develop
 
 jobs:
   build:
@@ -12,11 +13,9 @@ jobs:
       SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
       SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
       STAGING_URL: "cicdreactstage.surge.sh"
-      PRODUCTION_URL: "cicdreact.surge.sh"
     steps:
       - uses: actions/checkout@v2
 
-      # CACHE DEPENDENCIES
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
@@ -25,33 +24,27 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # INSTALL NODEJS
       - name: Use NodeJS
         uses: actions/setup-node@v1
         with:
           node-version: "14"
 
-      # INSTALL DEPENDENCIES
       - run: npm ci
 
-      # RUN TESTS
       - run: npm test -- --coverage
         env:
           CI: true
 
-      # UPLOAD TEST COVERAGE ARTIFACT
       - name: Upload Test Coverage
         uses: actions/upload-artifact@v3
         with:
           name: code-coverage
           path: coverage
 
-      # BUILD PROJECT (if push)
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
 
-      # UPLOAD BUILD ARTIFACT (if push)
       - name: Upload Build Folder
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v3
@@ -59,17 +52,10 @@ jobs:
           name: build
           path: build
 
-      # DEPLOY CODE TO STAGING (if push to develop)
       - name: Deploy to Staging
-        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        if: github.event_name == 'push'
         run: npx surge --project ./build --domain $STAGING_URL
 
-      # DEPLOY TO PRODUCTION (if push to master)
-      - name: Deploy to Production
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        run: npx surge --project ./build --domain $PRODUCTION_URL
-
-      # UPLOAD COVERAGE REPORTS (if push)
       - name: Upload Coverage Reports
         if: github.event_name == 'push'
         run: npx codecov

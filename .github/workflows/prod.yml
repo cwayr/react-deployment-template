@@ -1,0 +1,67 @@
+name: Production
+
+on:
+  pull_request:
+    branches: master
+  push:
+    branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      PRODUCTION_URL: "cicdreact.surge.sh"
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # will re-cache on changes to package-lock or operating system
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Use NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+
+      - run: npm ci
+
+      - run: npm test -- --coverage
+        env:
+          CI: true
+
+      - name: Upload Test Coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage
+          path: coverage
+
+      - name: Build Project
+        if: github.event_name == 'push'
+        run: npm run build
+
+      - name: Upload Build Folder
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
+
+      - name: Deploy to Staging
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        run: npx surge --project ./build --domain $STAGING_URL
+
+      - name: Deploy to Production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: npx surge --project ./build --domain $PRODUCTION_URL
+
+      - name: Upload Coverage Reports
+        if: github.event_name == 'push'
+        run: npx codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
