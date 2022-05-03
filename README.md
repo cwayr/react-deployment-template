@@ -1,4 +1,5 @@
-![](https://github.com/cwaymeyer/react_deployment_template/workflows/CI/badge.svg?branch=develop&event=push)
+![](https://github.com/cwaymeyer/react_deployment_template/workflows/dev/badge.svg?branch=develop&event=push)
+![](https://github.com/cwaymeyer/react_deployment_template/workflows/prod/badge.svg?branch=master&event=push)
 
 # React project template
 
@@ -12,7 +13,7 @@ Benefits:
 
 <hr />
 
-## To use
+## 💻 To use 💻
 
 ### 1. Set up repository
 
@@ -35,9 +36,13 @@ The above process is <b>necessary</b> for the workflow to work as intented. Beyo
 - Install surge (`npm install -g surge`)
 - Run `surge` to create a domain. <i>You will want to do this twice and set two different domains - one for staging and one for production</i>. Must have a Surge account.
 
-<a src="https://www.youtube.com/watch?v=-EjdMvYPSVU&t=55s">Reference video</a>
+[Reference video](https://www.youtube.com/watch?v=-EjdMvYPSVU&t=55s).
 
-### 4. Customize workflow
+### 4. Link repository to Codecov
+
+For code coverage reporting, you must register your repository with Codecov. Instructions found [here](https://docs.codecov.com/docs).
+
+### 5. Customize workflow
 
 The workflow for this project can be found at [`.github/workflows`](https://github.com/cwaymeyer/react_deployment_template/blob/master/.github/workflows/ci.yml).
 
@@ -48,15 +53,21 @@ The workflow for this project can be found at [`.github/workflows`](https://gith
 
 Update lines 14-15 with the staging and production URLs you set in step 3.
 
+<hr />
+
 <b>This workflow will run on a PR or push to the develop or master branch</b>. Below is an overview of how the workflow operates with each event:
 
 <img src="./workflow.jpg" width="600"/>
 
 For more information on GitHub Actions, see [the docs](https://docs.github.com/en/actions).
 
-### 5. Set GitHub Secrets
+<hr />
+
+### 6. Set GitHub Secrets
 
 In your GitHub repository, navigate to <b>Settings</b> ➡ <b>Secrets</b> ➡ <b>Actions</b>. Create two secrets with the following keys and values:
 
 > - `SURGE_LOGIN` - your Surge ID
 > - `SURGE_TOKEN` - your Surge password
+
+### You are now ready to begin adding your own code and deploying!
