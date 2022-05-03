@@ -1,4 +1,5 @@
-![](https://github.com/cwaymeyer/react_deployment_template/workflows/CI/badge.svg?branch=develop&event=push)
+![](https://github.com/cwaymeyer/react_deployment_template/workflows/dev/badge.svg?branch=develop&event=push)
+![](https://github.com/cwaymeyer/react_deployment_template/workflows/prod/badge.svg?branch=master&event=push)
 
 # React project template
 
