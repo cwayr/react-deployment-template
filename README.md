@@ -44,20 +44,23 @@ For code coverage reporting, you must register your repository with Codecov. Ins
 
 ### 5. Customize workflow
 
-The workflow for this project can be found at [`.github/workflows`](https://github.com/cwaymeyer/react_deployment_template/blob/master/.github/workflows/ci.yml).
+The workflows for this project can be found at [`.github/workflows`](https://github.com/cwaymeyer/react_deployment_template/blob/master/.github/workflows/ci.yml).
 
 > <b>Properties to update:</b>
 >
-> - `STAGING_URL (line 14)`
+> `.dev.yml`:
+>
+> - `STAGING_URL (line 15)`
+>
+> `.prod.yml`:
+>
 > - `PRODUCTION_URL (line 15)`
-
-Update lines 14-15 with the staging and production URLs you set in step 3.
+>
+> <i>Update these properties with the URLs created in step 3</i>
 
 <hr />
 
 <b>This workflow will run on a PR or push to the develop or master branch</b>. Below is an overview of how the workflow operates with each event:
-
-<img src="./workflow.jpg" width="600"/>
 
 For more information on GitHub Actions, see [the docs](https://docs.github.com/en/actions).
 
