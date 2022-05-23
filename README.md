@@ -3,6 +3,8 @@
 
 # React project template
 
+#### ⚠ README CURRENTLY OUT OF DATE
+
 This template bootstraps a React project with CI/CD workflows through GitHub Actions.
 
 Benefits:
