@@ -1,0 +1,43 @@
+name: "setup-project"
+
+description: |
+  "this action will setup the project in all four workflows
+  checkout repo -> cache node_modules -> setup node and install dependencies -> run tests -> upload coverage reports"
+
+inputs:
+  node_version:
+    required: false
+    default: "14"
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Repo
+    - uses: actions/checkout@v2
+
+    - name: Cache node_modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+      - name: Use NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node_version }}
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test -- --coverage
+        env:
+          CI: true
+
+      - name: Upload Test Coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage
+          path: coverage

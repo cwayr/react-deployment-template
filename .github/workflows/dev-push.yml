@@ -1,0 +1,21 @@
+name: Develop Push
+
+on:
+  push:
+    branches: develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      STAGING_URL: "cicdreactstage.surge.sh"
+    steps:
+      - name: Setup project and run tests
+        uses: ./.github/actions/setup-project
+
+      - name: Build project and deploy to staging
+        uses: ./.github/actions/build-and-deploy
+        with:
+          deploy_url: ${{ env.STAGING_URL }}
