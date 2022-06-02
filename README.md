@@ -17,11 +17,9 @@ Benefits:
 
 ## 💻 To use 💻
 
-### 1. Set up repository
+### 1. Select 'Use this template'
 
-- Create a new repo on GitHub
-- Clone this repository to your machine - `git clone https://github.com/cwaymeyer/react_deployment_template.git`
-- Set origin to your repo - `git remote set-url origin <your-repo-url>` (`git remote --v` to verify)
+[Creating a repo from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template)
 
 ### 2. Set branch structure
 
