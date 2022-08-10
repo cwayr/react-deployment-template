@@ -1,7 +1,9 @@
-![](https://github.com/cwaymeyer/react_deployment_template/workflows/dev/badge.svg?branch=develop&event=push)
-![](https://github.com/cwaymeyer/react_deployment_template/workflows/prod/badge.svg?branch=master&event=push)
+![](https://github.com/cwaymeyer/react_deployment_template/actions/workflows/dev.yml/badge.svg?branch=develop&event=push)
+![](https://github.com/cwaymeyer/react_deployment_template/actions/workflows/prod.yml/badge.svg?branch=master&event=push)
 
 # React project template
+
+#### ⚠ README CURRENTLY OUT OF DATE
 
 This template bootstraps a React project with CI/CD workflows through GitHub Actions.
 
@@ -15,11 +17,9 @@ Benefits:
 
 ## 💻 To use 💻
 
-### 1. Set up repository
+### 1. Select 'Use this template'
 
-- Create a new repo on GitHub
-- Clone this repository to your machine - `git clone https://github.com/cwaymeyer/react_deployment_template.git`
-- Set origin to your repo - `git remote set-url origin <your-repo-url>` (`git remote --v` to verify)
+[Creating a repo from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template)
 
 ### 2. Set branch structure
 
@@ -44,23 +44,20 @@ For code coverage reporting, you must register your repository with Codecov. Ins
 
 ### 5. Customize workflow
 
-The workflows for this project can be found at [`.github/workflows`](https://github.com/cwaymeyer/react_deployment_template/blob/master/.github/workflows/ci.yml).
+The workflow for this project can be found at [`.github/workflows`](https://github.com/cwaymeyer/react_deployment_template/blob/master/.github/workflows/ci.yml).
 
 > <b>Properties to update:</b>
 >
-> `.dev.yml`:
->
-> - `STAGING_URL (line 15)`
->
-> `.prod.yml`:
->
+> - `STAGING_URL (line 14)`
 > - `PRODUCTION_URL (line 15)`
->
-> <i>Update these properties with the URLs created in step 3</i>
+
+Update lines 14-15 with the staging and production URLs you set in step 3.
 
 <hr />
 
 <b>This workflow will run on a PR or push to the develop or master branch</b>. Below is an overview of how the workflow operates with each event:
+
+<img src="./workflow.jpg" width="600"/>
 
 For more information on GitHub Actions, see [the docs](https://docs.github.com/en/actions).
 
