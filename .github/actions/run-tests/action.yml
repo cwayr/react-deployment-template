@@ -1,0 +1,21 @@
+name: setup-project
+
+description: |
+  this action runs your tests
+  run tests -> upload coverage reports
+
+runs:
+  using: composite
+
+  steps:
+    - name: Run Tests
+      run: npm test -- --coverage
+      env:
+        CI: true
+      shell: bash
+
+    - name: Upload Test Coverage
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-coverage
+        path: coverage

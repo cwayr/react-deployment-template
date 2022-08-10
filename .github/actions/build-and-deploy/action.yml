@@ -1,0 +1,39 @@
+name: build-and-deploy
+
+description: |
+  this action action will build and deploy the project on a push event
+  deployments are made through surge
+  build project -> upload build artifact -> deploy -> upload coverage reports
+
+inputs:
+  deploy_url:
+    required: true
+    type: string
+
+  codecov_token:
+    required: true
+    type: string
+
+runs:
+  using: composite
+
+  steps:
+    - name: Build Project
+      run: npm run build
+      shell: bash
+
+    - name: Upload Build Folder
+      uses: actions/upload-artifact@v3
+      with:
+        name: build
+        path: build
+
+    - name: Deploy
+      run: npx surge --project ./build --domain ${{ inputs.deploy_url }}
+      shell: bash
+
+    - name: Upload Coverage Reports
+      run: npx codecov
+      env:
+        CODECOV_TOKEN: ${{ inputs.codecov_token }}
+      shell: bash
