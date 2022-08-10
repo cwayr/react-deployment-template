@@ -28,3 +28,4 @@ runs:
 
     - name: Install Dependencies
       run: npm ci
+      shell: bash

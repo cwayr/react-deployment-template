@@ -20,6 +20,7 @@ runs:
   steps:
     - name: Build Project
       run: npm run build
+      shell: bash
 
     - name: Upload Build Folder
       uses: actions/upload-artifact@v3
@@ -29,8 +30,10 @@ runs:
 
     - name: Deploy
       run: npx surge --project ./build --domain inputs.deploy_url
+      shell: bash
 
     - name: Upload Coverage Reports
       run: npx codecov
       env:
         CODECOV_TOKEN: inputs.codecov_token
+      shell: bash

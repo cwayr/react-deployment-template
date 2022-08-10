@@ -12,6 +12,7 @@ runs:
       run: npm test -- --coverage
       env:
         CI: true
+      shell: bash
 
     - name: Upload Test Coverage
       uses: actions/upload-artifact@v3
