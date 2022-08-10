@@ -29,11 +29,11 @@ runs:
         path: build
 
     - name: Deploy
-      run: npx surge --project ./build --domain inputs.deploy_url
+      run: npx surge --project ./build --domain ${{ inputs.deploy_url }}
       shell: bash
 
     - name: Upload Coverage Reports
       run: npx codecov
       env:
-        CODECOV_TOKEN: inputs.codecov_token
+        CODECOV_TOKEN: ${{ inputs.codecov_token }}
       shell: bash
