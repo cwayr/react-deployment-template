@@ -3,6 +3,8 @@
 
 # React project template
 
+#### ⚠ README CURRENTLY OUT OF DATE
+
 This template bootstraps a React project with CI/CD workflows through GitHub Actions.
 
 Benefits:
@@ -15,11 +17,9 @@ Benefits:
 
 ## 💻 To use 💻
 
-### 1. Set up repository
+### 1. Select 'Use this template'
 
-- Create a new repo on GitHub
-- Clone this repository to your machine - `git clone https://github.com/cwaymeyer/react_deployment_template.git`
-- Set origin to your repo - `git remote set-url origin <your-repo-url>` (`git remote --v` to verify)
+[Creating a repo from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template)
 
 ### 2. Set branch structure
 
@@ -36,17 +36,17 @@ The above process is <b>necessary</b> for the workflow to work as intented. Beyo
 - Install surge (`npm install -g surge`)
 - Run `surge` to create a domain. <i>You will want to do this twice and set two different domains - one for staging and one for production</i>. Must have a Surge account.
 
-[Reference video](https://www.youtube.com/watch?v=-EjdMvYPSVU&t=55s).
+[Reference video](https://www.youtube.com/watch?v=-EjdMvYPSVU&t=55s)
 
 ### 4. Link repository to Codecov
 
 For code coverage reporting, you must register your repository with Codecov. Instructions found [here](https://docs.codecov.com/docs).
 
-### 5. Customize workflow
+### 5. Customize workflows
 
-The workflow for this project can be found at [`.github/workflows`](https://github.com/cwaymeyer/react_deployment_template/blob/master/.github/workflows/ci.yml).
+The workflows for this project can be found at [`.github/workflows`](https://github.com/cwaymeyer/react_deployment_template/blob/master/.github/workflows).
 
-> <b>Properties to update:</b>
+> <b>Properties to update in `push.yml`:</b>
 >
 > - `STAGING_URL (line 14)`
 > - `PRODUCTION_URL (line 15)`
@@ -55,9 +55,7 @@ Update lines 14-15 with the staging and production URLs you set in step 3.
 
 <hr />
 
-<b>This workflow will run on a PR or push to the develop or master branch</b>. Below is an overview of how the workflow operates with each event:
-
-<img src="./workflow.jpg" width="600"/>
+<b>This workflow will run on a PR or push to the develop or master branch</b>.
 
 For more information on GitHub Actions, see [the docs](https://docs.github.com/en/actions).
 
